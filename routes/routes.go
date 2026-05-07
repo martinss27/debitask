@@ -45,6 +45,34 @@ func Register(mux *http.ServeMux, jwtSecret string) {
 			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		}
 	})))
+
+	// Habit routes
+	mux.Handle("/api/habits", middleware.AuthMiddleware(jwtSecret, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch r.Method {
+		case http.MethodPost:
+			handlers.CreateHabit(w, r)
+		case http.MethodGet:
+			handlers.ListHabits(w, r)
+		default:
+			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		}
+	})))
+	mux.Handle("/api/habits/{id}", middleware.AuthMiddleware(jwtSecret, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch r.Method {
+		case http.MethodDelete:
+			handlers.DeleteHabit(w, r)
+		default:
+			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		}
+	})))
+	mux.Handle("/api/habits/{id}/checkin", middleware.AuthMiddleware(jwtSecret, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch r.Method {
+		case http.MethodPost:
+			handlers.CheckInHabit(w, r)
+		default:
+			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		}
+	})))
 }
 
 func handleHealth(w http.ResponseWriter, r *http.Request) {

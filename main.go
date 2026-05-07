@@ -23,6 +23,7 @@ func main() {
 	handlers.SetJWTSecret(cfg.JWTSecret)
 
 	jobs.StartOverdueChecker(24 * time.Hour)
+	jobs.StartHabitMissChecker(24 * time.Hour)
 
 	mux := http.NewServeMux()
 	routes.Register(mux, cfg.JWTSecret)
