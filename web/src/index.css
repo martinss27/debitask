@@ -184,12 +184,13 @@ main {
 
 .deadline-inputs {
   display: flex;
+  flex-direction: column;
   gap: 0.5rem;
 }
 
 .deadline-inputs input[type="date"],
 .deadline-inputs input[type="time"] {
-  flex: 1;
+  width: 100%;
   color-scheme: dark;
 }
 
