@@ -1,0 +1,18 @@
+# Environment variables
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Go
+go.sum
+dist/
+bin/
+
+# OS
+.DS_Store
+*.log

@@ -1,28 +1,30 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
+
+	"debitask/config"
+	"debitask/handlers"
+	"debitask/routes"
+	"debitask/store"
 )
 
 func main() {
-	// Set up routes
-	http.HandleFunc("/", handleHome)
-	http.HandleFunc("/health", handleHealth)
+	cfg := config.Load()
 
-	// Start server
-	port := ":8080"
-	log.Printf("Server starting on http://localhost%s\n", port)
-	if err := http.ListenAndServe(port, nil); err != nil {
-		log.Fatalf("Server error: %v\n", err)
+	if err := store.Connect(cfg.DatabaseURL); err != nil {
+		log.Fatalf("database connection failed: %v\n", err)
 	}
-}
+	defer store.Close()
 
-func handleHome(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Welcome to debitask!\n")
-}
+	handlers.SetJWTSecret(cfg.JWTSecret)
 
-func handleHealth(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "OK\n")
+	mux := http.NewServeMux()
+	routes.Register(mux, cfg.JWTSecret)
+
+	log.Printf("server starting on http://localhost%s\n", cfg.Port)
+	if err := http.ListenAndServe(cfg.Port, mux); err != nil {
+		log.Fatalf("server error: %v\n", err)
+	}
 }
