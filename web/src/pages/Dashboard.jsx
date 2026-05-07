@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { getTasks, createTask, updateTask, deleteTask } from '../api/tasks'
 import CreateTaskForm from '../components/CreateTaskForm'
@@ -56,6 +56,8 @@ export default function Dashboard() {
       <header className="dashboard-header">
         <h1>debitask</h1>
         <div className="header-right">
+          <Link to="/dashboard" className="nav-link nav-link--active">Tasks</Link>
+          <Link to="/habits" className="nav-link">Habits</Link>
           <span>{user?.email}</span>
           <button onClick={handleLogout}>Logout</button>
         </div>

@@ -154,7 +154,7 @@ main {
 /* Dashboard layout */
 .dashboard-layout {
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 360px 1fr;
   gap: 2rem;
   max-width: 1100px;
 }
@@ -326,4 +326,101 @@ main {
 .tasks-empty {
   color: #555;
   font-size: 0.9rem;
+}
+
+/* Nav links */
+.nav-link {
+  color: #555;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.nav-link--active {
+  color: #e8e8e8;
+}
+
+/* Habit row */
+.habit-row {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.habit-row__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.habit-row__name {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #e8e8e8;
+  margin-bottom: 0.2rem;
+}
+
+.habit-row__meta {
+  font-size: 0.78rem;
+  color: #555;
+}
+
+.habit-row__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.habit-done-badge {
+  font-size: 0.8rem;
+  color: #4caf7d;
+  font-weight: 500;
+}
+
+/* Habit grid (GitHub squares) */
+.habit-grid {
+  display: grid;
+  grid-template-rows: repeat(7, 13px);
+  grid-template-columns: repeat(5, 13px);
+  gap: 3px;
+}
+
+.habit-cell {
+  width: 13px;
+  height: 13px;
+  border-radius: 2px;
+}
+
+.habit-cell--empty     { background: transparent; }
+.habit-cell--skipped   { background: #1e1e1e; }
+.habit-cell--future    { background: #222; border: 1px solid #2a2a2a; }
+.habit-cell--today     { background: #2a2a2a; border: 1px solid #444; }
+.habit-cell--done      { background: #4caf7d; }
+.habit-cell--missed    { background: #5a1a1a; }
+
+/* Day selector */
+.day-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.day-btn {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid #2e2e2e;
+  border-radius: 5px;
+  background: #111;
+  color: #555;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.day-btn--active {
+  border-color: #e8e8e8;
+  color: #e8e8e8;
 }
