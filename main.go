@@ -3,9 +3,11 @@ package main
 import (
 	"log"
 	"net/http"
+	"time"
 
 	"debitask/config"
 	"debitask/handlers"
+	"debitask/jobs"
 	"debitask/routes"
 	"debitask/store"
 )
@@ -19,6 +21,8 @@ func main() {
 	defer store.Close()
 
 	handlers.SetJWTSecret(cfg.JWTSecret)
+
+	jobs.StartOverdueChecker(24 * time.Hour)
 
 	mux := http.NewServeMux()
 	routes.Register(mux, cfg.JWTSecret)
